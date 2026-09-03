@@ -26,20 +26,28 @@
  *  \036             -newline
  *  \035             -horizontal tab (ARM only)
  *  \001 to \034     -extended spacing (value * FW/2)
- *  \0               -ends current string
+ *  \0               -ends current string 
  */
 
 
 
 /* 
-*Notes of my motives and what i know
+*Notes of my motives and what i know and what do I need to check 
 
 I might not have any idea how all this works but I would like to have my native language as an option in the language settings
 Quick google search told me that edge tx uses utf8 encoding and as far as I know it supports Turkish characters
 Double checked the radio itself supports turkish character too.
+Just learned that I might need to add ğ İ ı and ş that aren't supported by default and aren't used in other Languages. I am glad that French and German come with most of the letters English doesn't have but Turkish does.
 
+-There is something in my vs code that keeps giving suggestions but I won't use it.I will use it tho if suggest what I was already going to type.
+-I will skip certain words that I think I can find a better translation for them later, marked with the word "Skip" next to them.
+-I am not sure the word "Drive" refers to the software drivers or litteral driving, will check that out tomorrow.
+-Check out if I can translate "Channel" directly to "Kanal" and look for shorter translations for Trainer
+- It's 03.09.2026 and I have commited a major sin, I used AI for suggestions. I will translate Debug as Hata Ayıklama but ayıklama abbreviated as ayk.
 */
 
+
+// I just checked and there are 14 hundred lines in this file. This is going to be fun and long
 
 
 /*
@@ -58,129 +66,127 @@ Double checked the radio itself supports turkish character too.
 #define TR_QM_MODEL_SETUP               "Model\nKurulumu" // "Model\nSetup" to "Model\nKurulumu"
 #define TR_QM_RADIO_SETUP               "Kumanda\nKurulumu" // "Radio\nSetup" to "Kumanda\nKurulumu"  ###   We don't call radio(the transmitter/controller) "radyo", word "radyo" is exclusively used for FM/AM consumer radio and sometimes used for ham, i think the word "Kumanda"(meaning controller would fit here better than the direct translation)                                                                                            
 #define TR_QM_UI_SETUP                  "UI\nKurulumu" // "UI\nSetup" to "UI\nKurulumu" User Interface doesn't have a counterpart abbreviation unlike English but I don't think "Kullanıcı Arayüzü" will fit in the screen, I will assume people know what ui means
-#define TR_QM_TOOLS                     "Tools" // Tools to Araçlar 
+#define TR_QM_TOOLS                     "Araçlar" // Tools to Araçlar 
 #define TR_QM_MODEL_SETTINGS            "Model\nAyarları" // Settings have been translated to Ayarlar for decades in electronics
-#define TR_QM_RADIO_SETTINGS            "Radio\nAyarları" // same thing here
-#define TR_QM_FLIGHT_MODES              TR_SFC_AIR("Drive\nModes", "Flight\nModes")
-#define TR_QM_INPUTS                    "Girişler" // 
-#define TR_QM_MIXES                     "Mixes"
-#define TR_QM_OUTPUTS                   "Outputs"
-#define TR_QM_CURVES                    "Curves"
-#define TR_QM_GLOBAL_VARS               "Global\nVariables"
-#define TR_QM_LOGICAL_SW                "Logical\nSwitches"
-#define TR_QM_SPEC_FUNC                 "Special\nFunctions"
-#define TR_QM_CUSTOM_LUA                "Mixer\nScripts"
-#define TR_QM_TELEM                     "Telemetry"
-#define TR_QM_GLOB_FUNC                 "Global\nFunctions"
-#define TR_QM_TRAINER                   "Trainer"
-#define TR_QM_HARDWARE                  "Hardware"
-#define TR_QM_ABOUT                     "About\nEdgeTX"
-#define TR_QM_THEMES                    "Themes"
-#define TR_QM_TOP_BAR                   "Top Bar"
-#define TR_QM_SCREEN_1                  "Screen 1"
-#define TR_QM_SCREEN_2                  "Screen 2"
-#define TR_QM_SCREEN_3                  "Screen 3"
-#define TR_QM_SCREEN_4                  "Screen 4"
-#define TR_QM_SCREEN_5                  "Screen 5"
-#define TR_QM_SCREEN_6                  "Screen 6"
-#define TR_QM_SCREEN_7                  "Screen 7"
-#define TR_QM_SCREEN_8                  "Screen 8"
-#define TR_QM_SCREEN_9                  "Screen 9"
-#define TR_QM_SCREEN_10                 "Screen 10"
-#define TR_QM_ADD_SCREEN                "Add\nScreen"
-#define TR_QM_APPS                      "Apps"
-#define TR_QM_STORAGE                   "Storage"
-#define TR_QM_RESET                     TR_SFC_AIR("Drive\nReset", "Flight\nReset")
-#define TR_QM_CHAN_MON                  "Channel\nMonitor"
-#define TR_QM_LS_MON                    "LS\nMonitor"
-#define TR_QM_STATS                     "Statistics"
-#define TR_QM_DEBUG                     "Debug"
-#define TR_MAIN_MODEL_SETTINGS          "Model Settings"
-#define TR_MAIN_RADIO_SETTINGS          "Radio Settings"
+#define TR_QM_RADIO_SETTINGS            "Kumanda\nAyarları" // same thing here, Changing "Radio" to "Kumanda" 
+#define TR_QM_FLIGHT_MODES              TR_SFC_AIR("Drive\nModes", "Uçuş\nModları") // "Flight\nModes" to "Uçuş\nModları" , I will pass on Drive Modes since I don't know what its used for right now.
+#define TR_QM_INPUTS                    "Girdiler" // Can be translated to both Girdiler and Girişler, I will go with Girdiler for now
+#define TR_QM_MIXES                     "Mixes" // Skip
+#define TR_QM_OUTPUTS                   "Çıkışlar" // Like in the case of input, both Çıkışlar and Çıktılar can be used, I am going with Çıkışlar since it sounds better for this case(for me)
+#define TR_QM_CURVES                    "Curves" // Skip
+#define TR_QM_GLOBAL_VARS               "Küresel\nDeğişkenler" // This term is used in programming and directly translates to Küresel Değişkenler, I will change it but I might change Küresel back to Global if it doesn't fit in the screen
+#define TR_QM_LOGICAL_SW                "Logical\nSwitches" // Skip
+#define TR_QM_SPEC_FUNC                 "Özel\nFonksiyonlar" // Special translates to word "Özel" in Turkish for this context and Functions translates to "Fonksiyonlar" and I don't need to change the order of the words to make it a proper noun phrase
+#define TR_QM_CUSTOM_LUA                "Mixer\nScripts" // Skip
+#define TR_QM_TELEM                     "Telemetri" // It's exactly the same in Turkish, just y becomes i
+#define TR_QM_GLOB_FUNC                 "Küresel\nFonksiyonlar" // The same concern here with global variables, The seconf words of the both parameters are too long, I might need to cut corners by changing Küresel to Global
+#define TR_QM_TRAINER                   "Trainer" // I am skeptical about it, Trainer as in Aircraft will Translate to Eğitim Uçağı, but that would be too long. It is for the setting the channels and calibrating(i am not sure what we are calibrating). I think I will have to be creative with this one. Skip ofc. There is always tomorrow.
+#define TR_QM_HARDWARE                  "Donanım" // It translates directly to Donanım
+#define TR_QM_ABOUT                     "EdgeTXt\nHakkında" // About would be "Hakkında", EdgeTX is a proper noun. I just need to change their place and translate "About"
+#define TR_QM_THEMES                    "Temalar" // My phone translates Themes to Temalar, I wonder if I should be lazy and just say themes. There seems to be no other subsitute. Temalar it is, look at it once again. Skip tho it's translated
+#define TR_QM_TOP_BAR                   "Top Bar" // Skip
+#define TR_QM_SCREEN_1                  "Ekran 1" // Screen directly translates to Ekran so a no brainer.
+#define TR_QM_SCREEN_2                  "Ekran 2" // same here
+#define TR_QM_SCREEN_3                  "Ekran 3" // same here
+#define TR_QM_SCREEN_4                  "Ekran 4" // same here
+#define TR_QM_SCREEN_5                  "Ekran 5" // same here
+#define TR_QM_SCREEN_6                  "Ekran 6" // same here
+#define TR_QM_SCREEN_7                  "Ekran 7" // same here
+#define TR_QM_SCREEN_8                  "Ekran 8" // same here
+#define TR_QM_SCREEN_9                  "Ekran 9" // same here
+#define TR_QM_SCREEN_10                 "Ekran 10" // same here
+#define TR_QM_ADD_SCREEN                "Ekran\nEkle" // Screen directly translates to Ekran and Add translates to Ekle. This is a direct translation too, just swap the places of the words.
+#define TR_QM_APPS                      "Uygulamalar" // Word Applications translates to Uygulamalar but the Turkish counterpart doesn't have a abbreviation like English. I will translate it to Uygulamalar and pray it fits.
+#define TR_QM_STORAGE                   "Depolama" // I will just translate it to Depolama.
+#define TR_QM_RESET                     TR_SFC_AIR("Drive\nReset", "Flight\nReset") // Skip
+#define TR_QM_CHAN_MON                  "Channel\nMonitor" // 
+#define TR_QM_LS_MON                    "LS\nMonitor" // looked up what LS is and I think it's the rolling thing in the back of my radio. I can make my own abbreviation for Left Slider after translating it. I can keep the current english abb. 
+#define TR_QM_STATS                     "İstatistikler" // Statistics Turkish counterpart is really similiar to the English one, It's İstatistikler
+#define TR_QM_DEBUG                     "Hata Ayk." // Translation as we see in the Turkish games and apps would be Hata Ayıklama but to keep it short, I will just make it Ayıklama because I think it would be suffecient for the user to understand what it means. I will check it out later. Come back to this later. # I have decieded to go with "Hata Ayk."
+#define TR_MAIN_MODEL_SETTINGS          "Model Settings" // Model doesn't need changing, just translate Settings to Ayarları(We add the ı i u ü for third-person singular possesives)
+#define TR_MAIN_RADIO_SETTINGS          "Kumanda Ayarları" // Radio will be Kumanda as I explained previously and Settings will be Ayarları
 #define TR_MAIN_MENU_MANAGE_MODELS      "Manage Models"
 #define TR_MAIN_MENU_MODEL_NOTES        "Model Notes"
 #define TR_MAIN_MENU_CHANNEL_MONITOR    "Channel Monitor"
 #define TR_MONITOR_SWITCHES             "Logical Switch Monitor"
-#define TR_MAIN_MENU_MODEL_SETTINGS     "Model Setup"
-#define TR_MAIN_MENU_RADIO_SETTINGS     "Radio Setup"
-#define TR_MAIN_MENU_SCREEN_SETTINGS    "UI Setup"
-#define TR_MAIN_MENU_STATISTICS         "Statistics"
-#define TR_MAIN_MENU_ABOUT_EDGETX       "About EdgeTX"
-#define TR_MAIN_VIEW_X                  "Screen "
-#define TR_MAIN_MENU_THEMES             "Themes"
-#define TR_MAIN_MENU_APPS               "Apps"
-#define TR_MENUHELISETUP                TR_BW_COL("HELI SETUP", "Heli Settings")
+#define TR_MAIN_MENU_MODEL_SETTINGS     "Model Kurulumu" // I don't think I need to change Model. I will just translate Setup to Kurulumu(that u in the end of kurulumu is used for making it possesive)
+#define TR_MAIN_MENU_RADIO_SETTINGS     "Kumanda Kurulumu" // I will change Radio to Kumanda and Setup to Kurulumu for accurate translation
+#define TR_MAIN_MENU_SCREEN_SETTINGS    "UI Kurulumu" // I will keep the "UI" and just change the "Setup". 
+#define TR_MAIN_MENU_STATISTICS         "İstatistikler" // Same with what I did on line 101 for Statistics
+#define TR_MAIN_MENU_ABOUT_EDGETX       "EdgeTX Hakkında" // Same thing I did with the line 82
+#define TR_MAIN_VIEW_X                  "Ekran " // Screen Translates to Ekran
+#define TR_MAIN_MENU_THEMES             "Themes" // Skip
+#define TR_MAIN_MENU_APPS               "Uygulamalar" // Same here with line 96
+#define TR_MENUHELISETUP                TR_BW_COL("HELI KURULUM", "Heli Ayarları") // Helicopter is Helikopter in Turkish so abbreviation could be keeped. I will just change the words setup and settings. I will be marginal here and don't use possesive. Come back to this later.
 #define TR_MENUFLIGHTMODES              TR_SFC_AIR(TR_BW_COL("DRIVE MODES", "Drive Modes"), TR_BW_COL("FLIGHT MODES", "Flight Modes"))
-#define TR_MENUFLIGHTMODE               TR_SFC_AIR("DRIVE MODE", "FLIGHT MODE")
-#define TR_MENUINPUTS                   TR_BW_COL("INPUTS", "Inputs")
-#define TR_MENULIMITS                   TR_BW_COL("OUTPUTS", "Outputs")
-#define TR_MENUCURVES                   TR_BW_COL("CURVES", "Curves")
-#define TR_MIXES                        TR_BW_COL("MIXES", "Mixes")
-#define TR_MENU_GLOBAL_VARS             "Global Variables"
-#define TR_MENULOGICALSWITCHES          TR_BW_COL("LOGICAL SWITCHES", "Logical Switches")
-#define TR_MENUCUSTOMFUNC               TR_BW_COL("SPECIAL FUNCTIONS", "Special Functions")
-#define TR_MENUCUSTOMSCRIPTS            TR_BW_COL("MIXER SCRIPTS", "Mixer Scripts")
-#define TR_MENUTELEMETRY                TR_BW_COL("TELEMETRY", "Telemetry")
-#define TR_MENUSPECIALFUNCS             TR_BW_COL("GLOBAL FUNCTIONS", "Global Functions")
-#define TR_MENUTRAINER                  TR_BW_COL("TRAINER", "Trainer")
-#define TR_HARDWARE                     TR_BW_COL("HARDWARE", "Hardware")
-#define TR_USER_INTERFACE               "Top Bar"
-#define TR_SD_CARD                      TR_BW_COL("SD CARD", "Storage")
-#define TR_DEBUG                        "Debug"
-#define TR_MENU_RADIO_SWITCHES          TR_BW_COL("SWITCHES", "Switches Test")
-#define TR_MENUCALIBRATION              TR_BW_COL("CALIBRATION", "Calibration")
-#define TR_FUNCTION_SWITCHES            "Customizable Switches"
-// End Main menu
+#define TR_MENUFLIGHTMODE               TR_SFC_AIR("DRIVE MODE", "FLIGHT MODE") // Skip
+#define TR_MENUINPUTS                   TR_BW_COL("GİRDİLER", "Girdiler") // Since I went with Girdiler on line 70, I will do the same here.
+#define TR_MENULIMITS                   TR_BW_COL("ÇIKIŞLAR", "Çıkışlar") // Keeping the tradition I started on line 72.
+#define TR_MENUCURVES                   TR_BW_COL("CURVES", "Curves") // Skip
+#define TR_MIXES                        TR_BW_COL("MIXES", "Mixes") //
+#define TR_MENU_GLOBAL_VARS             "Global Variables" // Same thing I did on line 74. It translater to Küresel Değişkenler but as I said I might change Küresel back to Global.
+#define TR_MENULOGICALSWITCHES          TR_BW_COL("LOGICAL SWITCHES", "Logical Switches") //Skip
+#define TR_MENUCUSTOMFUNC               TR_BW_COL("ÖZEL FONKSİYONLAR", "Özel Fonksiyonlar") // Special translates to word "Özel" in Turkish for this context and Functions translates to "Fonksiyonlar" and I don't need to change the order of the words to make it a proper noun phrase
+#define TR_MENUTELEMETRY                TR_BW_COL("TELEMETRİ", "Telemetri") // I wish every word in this file was Telemetry. Same thing what I did with line 78, change y to i
+#define TR_MENUSPECIALFUNCS             TR_BW_COL("GLOBAL FUNCTIONS", "Global Functions") // Same thing with the line 79, it translates to Küresel Fonksiyonlar
+#define TR_MENUTRAINER                  TR_BW_COL("TRAINER", "Trainer") //Skip
+#define TR_HARDWARE                     TR_BW_COL("DONANIM", "Donanım") // It translates directly to Donanım. Like in the line 81.
+#define TR_USER_INTERFACE               "Top Bar" // I don't even know what this is, Skip
+#define TR_SD_CARD                      TR_BW_COL("SD KART", "Depolama") // Storage needs translation and I will make it "Depolama" like I did on line 97. On the other side SD CARD doesn't nessecarily need translation but Writing Card as Kart would be better if you ask me.
+#define TR_MENU_RADIO_SWITCHES          TR_BW_COL("SWITCHES", "Switches Test") // Skip
+#define TR_MENUCALIBRATION              TR_BW_COL("KALİBRASYON", "Kalibrasyon") // I might be tripping but I remember like I already translated a word Calibration to Kalibrasyon. Whatever this word is borrowed from foreign languages so it is really similiar. Just the writing is different.
+#define TR_FUNCTION_SWITCHES            "Customizable Switches" // Skip
+// End Main menu                        We have a long way to go.
 
-#define TR_MINUTE_SINGULAR            "minute"
-#define TR_MINUTE_PLURAL1             "minutes"
-#define TR_MINUTE_PLURAL2             "minutes"
+#define TR_MINUTE_SINGULAR            "dakika" // time measuremt unit, minute is the word dakika in turkish.
+#define TR_MINUTE_PLURAL1             "dakika" // We don't have a plural form of dakika, it is used dakika in everywhere eg. 1 minute is 1 dakika/ 5 minutes isn't 5 dakika(lar), its 5 dakika. (lar) being the plural suffix in Turkish.
+#define TR_MINUTE_PLURAL2             "dakika" // Same here
 
-#define TR_OFFON_1                     "OFF"
-#define TR_OFFON_2                     "ON"
-#define TR_MMMINV_1                    "---"
-#define TR_MMMINV_2                    "INV"
-#define TR_VBEEPMODE_1                 "Quiet"
-#define TR_VBEEPMODE_2                 "Alarm"
-#define TR_VBEEPMODE_3                 "NoKey"
-#define TR_VBEEPMODE_4                 "All"
-#define TR_VBLMODE_1                   "OFF"
-#define TR_VBLMODE_2                   "Keys"
-#define TR_VBLMODE_3                   TR("Ctrl","Controls")
-#define TR_VBLMODE_4                   "Both"
-#define TR_VBLMODE_5                   "ON"
-#define TR_TRNMODE_1                   "OFF"
-#define TR_TRNMODE_2                   TR("+=","Add")
-#define TR_TRNMODE_3                   TR(":=","Replace")
-#define TR_TRNCHN_1                    "CH1"
-#define TR_TRNCHN_2                    "CH2"
-#define TR_TRNCHN_3                    "CH3"
-#define TR_TRNCHN_4                    "CH4"
+#define TR_OFFON_1                     "KAPALI" // I will assume by "off" it means it is "turned off". That would be "Kapalı" in Turkish.
+#define TR_OFFON_2                     "AÇIK" // On is Açık in Turkish.
+#define TR_MMMINV_1                    "---" // I guess this doesn't need translation.
+#define TR_MMMINV_2                    "INV" // I am not sure what it is. Might be short for Inverted. I will keep it as is for now. Skip
+#define TR_VBEEPMODE_1                 "Sessiz" // Directly translates to Sessiz.
+#define TR_VBEEPMODE_2                 "Alarm" // It is exactly the same in Turkish. No need for changing.
+#define TR_VBEEPMODE_3                 "NoKey" // Skip.
+#define TR_VBEEPMODE_4                 "Hepsi" // I don't if the word "All" has other meanings. I will just use the one meaning every one. Which is "Hepsi" in Turkish.
+#define TR_VBLMODE_1                   "KAPALI" // Same with line 142
+#define TR_VBLMODE_2                   "Keys" // Skip. I am not sure it means buttons or litteal keys.
+#define TR_VBLMODE_3                   TR("Ctrl","Controls") 
+#define TR_VBLMODE_4                   "İkisi de" // I think that would be "İkisi de" in Turkish. Her ikisi would be too long and too formal. I will make it ikisi de for now. Come back to this later.
+#define TR_VBLMODE_5                   "AÇIK" // Same as line 143
+#define TR_TRNMODE_1                   "OFF" // Same as line 142
+#define TR_TRNMODE_2                   TR("+=","Add") // Tho addition as a mathematical operation is Toplama in Turkish, Verb Ekle(mek) would be more fitting. Come back to this later.
+#define TR_TRNMODE_3                   TR(":=","Değiştir") // Replace is Değiştir in Turkish.
+#define TR_TRNCHN_1                    "CH1" // I suppose they don't need translation. I will assume the user know CH is Channel/Kanal. It is pretty universal. Come back to this later.
+#define TR_TRNCHN_2                    "CH2" // Same here
+#define TR_TRNCHN_3                    "CH3" // Same here
+#define TR_TRNCHN_4                    "CH4" // Same here
 
-#define TR_AUX_SERIAL_MODES_1          "OFF"
-#define TR_AUX_SERIAL_MODES_2          "Telem Mirror"
-#define TR_AUX_SERIAL_MODES_3          "Telemetry In"
+#define TR_AUX_SERIAL_MODES_1          "KAPALI" // Same as line 142
+#define TR_AUX_SERIAL_MODES_2          "Telem Mirror" // Skip
+#define TR_AUX_SERIAL_MODES_3          "Telemetry In" // I am not sure what is the context for the "In". Come back to this later. Skip
 #define TR_AUX_SERIAL_MODES_4          TR("SBUS Trn Inv.",TR("SBUS Trn Inv.","SBUS Trainer Inv."))
 #define TR_AUX_SERIAL_MODES_5          "SBUS Trainer"
-#define TR_AUX_SERIAL_MODES_6          "LUA"
-#define TR_AUX_SERIAL_MODES_7          "CLI"
-#define TR_AUX_SERIAL_MODES_8          "GPS"
-#define TR_AUX_SERIAL_MODES_9          "Debug"
-#define TR_AUX_SERIAL_MODES_10         "SpaceMouse"
-#define TR_AUX_SERIAL_MODES_11         "External module"
-#define TR_SWTYPES_1                   "None"
-#define TR_SWTYPES_2                   "Toggle"
-#define TR_SWTYPES_3                   "2POS"
-#define TR_SWTYPES_4                   "3POS"
-#define TR_SWTYPES_5                   "Global"
-#define TR_POTTYPES_1                  "None"
-#define TR_POTTYPES_2                  "Pot"
-#define TR_POTTYPES_3                  TR("Pot w. det","Pot with detent")
-#define TR_POTTYPES_4                  "Slider"
-#define TR_POTTYPES_5                  TR("Multipos","Multipos Switch")
-#define TR_POTTYPES_6                  "Axis X"
-#define TR_POTTYPES_7                  "Axis Y"
-#define TR_POTTYPES_8                  "Switch"
+#define TR_AUX_SERIAL_MODES_6          "LUA" //Doesn't need translation since it is the name of a programming language.
+#define TR_AUX_SERIAL_MODES_7          "CLI" // Doesn't need translation.
+#define TR_AUX_SERIAL_MODES_8          "GPS" // Doesn't need translation
+#define TR_AUX_SERIAL_MODES_9          "Hata Ayk." // I will translate it as Hata Ayk.
+#define TR_AUX_SERIAL_MODES_10         "SpaceMouse" // Fly me to the moon, let me play among the stars. I swear to god I don't know what it is. Is it the kerboard key ones or a litteral Astronaut mouse. Both maybe, idrk.
+#define TR_AUX_SERIAL_MODES_11         "Harici Modül" // External in Turkish is "Harici" and Module is a borrowed word and is similiar with the English counterpart, "Modül".
+#define TR_SWTYPES_1                   "Hiçbiri" // Even tho I don't know what it is used for, i think "Hiçbiri" the direct translation would work.
+#define TR_SWTYPES_2                   "Toggle" // What does it even mean?
+#define TR_SWTYPES_3                   "2POS" // I suggest it doesn't need translation
+#define TR_SWTYPES_4                   "3POS" // It doesn't need translation too
+#define TR_SWTYPES_5                   "Küresel" // Turkish for this is Küresel.
+#define TR_POTTYPES_1                  "Hiçbiri" // Same thing here as the line 177.
+#define TR_POTTYPES_2                  "Pot" // Pot as in potentiometer? If it is potentiometer then it won't need translation.
+#define TR_POTTYPES_3                  TR("TetikliPot","Tetikli Pot.") // Pot doesn't need translation but Detent does. I will translate it as "Tetikli". Turkish is an agglutinative language so with just gets added to the end of the Tetik(detent) as "-li"(with). I couldn't come up with a better solution. Come back to this later.  
+#define TR_POTTYPES_4                  "Slider" // I think that would be "Kaydırıcı". I didn't knew this word, and since it is a legitimate translation used in web design, welcome aboard.
+#define TR_POTTYPES_5                  TR("ÇokPozis.","ÇokluPozis Anahtar") // Multi would be "Çoklu" here. Multiposition means Çoklu Pozisyon but the problem is, the word is really long. I am gonna abbreviate Pozisyon(position) as pozis. for now. Come back to this later.
+#define TR_POTTYPES_6                  "Axis X" // I accidently deleted this one
+#define TR_POTTYPES_7                  "Axis Y" // Axis is Eksen in Turkish
+#define TR_POTTYPES_8                  "Switch" // I skipped Switches till now. I will look at the ones when it is the time for pushing
 #define TR_VPERSISTENT_1               "OFF"
 #define TR_VPERSISTENT_2               "Flight"
 #define TR_VPERSISTENT_3               "Manual Reset"
